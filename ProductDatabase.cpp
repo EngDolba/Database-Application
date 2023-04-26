@@ -179,7 +179,7 @@ string ProductDatabase::mapToString()
     return ss.str();
 }
 
-// Function to convert a map to a string
+
 string ProductDatabase::mapToString(const map<double, int> &m)
 {
     stringstream ss;
@@ -207,13 +207,10 @@ void ProductDatabase::exportOrders(string filePath)
 
 void ProductDatabase::printOrders()
 {
-    // Print header
     cout << left << setw(15) << "Product ID" << left << setw(25) << "Product Name" << left << setw(10) << "Quantity"
          << left << setw(10) << "COGS" << left << setw(15) << "Selling Price" << endl;
     cout << setfill('-') << setw(75) << "" << endl;
     cout << setfill(' ');
-
-    // Print orders
     for (auto o: orders)
     {
         cout << left << setw(15) << o.productID << left << setw(25) << o.productName << left << setw(10) << o.quantity
