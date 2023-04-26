@@ -1,4 +1,0 @@
-/home/ndolb21/Programas/Clion/CLion-2023.1.1/clion-2023.1.1/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/ndolb21/Programas/Clion/CLion-2023.1.1/clion-2023.1.1/bin/ninja/linux/x64/ninja -G Ninja -S /home/ndolb21/Escritorio/Europebet -B /home/ndolb21/Escritorio/Europebet/cmake-build-debug
--- Configuring done
--- Generating done
--- Build files have been written to: /home/ndolb21/Escritorio/Europebet/cmake-build-debug
