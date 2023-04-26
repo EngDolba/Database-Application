@@ -91,7 +91,7 @@ int ProductDatabase::getQuantityOfProduct(string productID)
 double ProductDatabase::getAveragePrice(string productId)
 {
     map<double, int>::iterator iter = products[productId].purchasedPrices.begin();
-    int sum = 0;
+    double sum = 0;
     int count = 0;
     for (iter; iter != products[productId].purchasedPrices.end(); iter++)
     {
@@ -116,7 +116,7 @@ string ProductDatabase::getFewestProduct()
 {
     map<string, product>::iterator iter = products.begin();
     int min = INT16_MAX;
-    string maxId = "";
+    string maxId;
     for (iter; iter != products.end(); iter++)
     {
         product a = iter->second;
@@ -152,7 +152,7 @@ string ProductDatabase::getMostPopularProduct()
 double ProductDatabase::calculateAverageSoldPrice(const string &product_id)
 {
     map<double, int>::iterator iter = products[product_id].soldPrices.begin();
-    int sum = 0;
+    double sum = 0;
     int count = 0;
     for (iter; iter != products[product_id].soldPrices.end(); iter++)
     {
@@ -193,19 +193,16 @@ string ProductDatabase::mapToString(const map<double, int> &m)
     return ss.str();
 }
 
-
-void ProductDatabase::export_to_csv(string filePath, vector<order> orders) {
+void ProductDatabase::exportOrders(string filePath)
+{
     std::ofstream file(filePath);
     file << "Quantity,ProductID,ProductName,SellingPrice,COGS\n";
-    for (Order order : orders) {
+    for (order order : orders) {
         file << order.quantity << "," << order.productID << ","
              << order.productName << "," << order.sellingPrice << ","
              << order.COGS << "\n";
     }
     file.close();
-}
-void ProductDatabase::exportOrders(string filePath)
-{
-    ProductDatabase::export_to_csv(filePath,orders);
+    orders.clear();
 }
 

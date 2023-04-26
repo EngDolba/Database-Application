@@ -14,6 +14,7 @@ COPY ProductDatabase.cpp .
 # Compile the project
 RUN mkdir build && cd build && cmake .. && make
 
+
 # Run the program
-CMD ["./build/main"]
+CMD ["./build/Europebet"]
 

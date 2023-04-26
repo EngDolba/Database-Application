@@ -89,7 +89,5 @@ private:
 
     string mapToString();
     string mapToString(const map<double, int> &m);
-    void generateReport(const string &productID, int quantity, const product &a, double price);
     void generateOrder(const string &productID, int quantity, const product &a, double price);
-    void export_to_csv(string filePath, vector<order> orders);
 };

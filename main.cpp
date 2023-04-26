@@ -1,6 +1,4 @@
 #include <iostream>
-#include <sstream>
-
 using namespace std;
 
 #include "ProductDatabase.h"
@@ -70,9 +68,7 @@ int main()
             string path;
             cin >> path;
             PD->exportOrders(path);
-
         }
-
         if (command == "get_most_popular_product") { cout << PD->getMostPopularProduct() << endl; }
         if(command =="exit") exit(0);
     }

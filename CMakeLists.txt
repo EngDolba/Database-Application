@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 include_directories(.)
 
-add_executable(europebet
+add_executable(Europebet
         main.cpp
         ProductDatabase.cpp
-        ProductDatabase.h ProductDatabaseTest.h)
+        ProductDatabase.h)
