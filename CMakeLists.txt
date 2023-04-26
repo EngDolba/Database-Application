@@ -9,3 +9,4 @@ add_executable(Europebet
         main.cpp
         ProductDatabase.cpp
         ProductDatabase.h)
+add_definitions(-DNDEBUG)

@@ -1,4 +1,0 @@
-Quantity,ProductID,ProductName,SellingPrice,COGS
-4,prod001,iphone,2000,8000
-3,prod001,iphone,2000,6000
-5,prod002,ipod,3000,15000

@@ -3,6 +3,11 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#ifndef NDEBUG
+#define DBGPRINT cout << ProductDatabase::mapToString() << endl;
+#else
+#define DBGPRINT
+#endif
 
 ProductDatabase::ProductDatabase() = default;
 
@@ -28,9 +33,7 @@ void ProductDatabase::saveProduct(const string &productID, string productName, i
         a.price = productPrice;
         products[productID] = a;
     }
-
-    cout << ProductDatabase::mapToString() << endl;
-
+    DBGPRINT;
 }
 
 void ProductDatabase::purchaseProduct(string productID, int quantity, double price)
@@ -46,8 +49,7 @@ void ProductDatabase::purchaseProduct(string productID, int quantity, double pri
         a.purchasedPrices[price] += quantity;
     }
     products[productID] = a;
-    cout << ProductDatabase::mapToString() << endl;
-
+    DBGPRINT;
 }
 
 void ProductDatabase::orderProduct(string productID, int quantity)
@@ -65,10 +67,8 @@ void ProductDatabase::orderProduct(string productID, int quantity)
     a.balance -= quantity;
     a.soldNumber += quantity;
     products[productID] = a;
-    cout << ProductDatabase::mapToString() << endl;
-
     generateOrder(productID, quantity, a, price);
-
+    DBGPRINT;
 }
 
 void
@@ -98,10 +98,7 @@ double ProductDatabase::getAveragePrice(string productId)
         sum += iter->second * iter->first;
         count += iter->second;
     }
-
     return sum / count;
-
-
 }
 
 
@@ -143,7 +140,7 @@ string ProductDatabase::getMostPopularProduct()
             maxId = a.id;
         }
     }
-    cout << ProductDatabase::mapToString() << endl;
+    DBGPRINT;
     return products[maxId].name;
 }
 
