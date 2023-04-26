@@ -1,8 +1,10 @@
 #include <iostream>
+
 using namespace std;
 
 #include "ProductDatabase.h"
 #include <limits>
+
 int main()
 {
     ProductDatabase *PD = new ProductDatabase();
@@ -56,26 +58,27 @@ int main()
         {
             string productId;
             cin >> productId;
-           cout <<  PD->getProductProfit(productId) << endl;
+            cout << PD->getProductProfit(productId) << endl;
         }
         if (command == "get_fewest_product")
         {
             cout << PD->getFewestProduct() << endl;
 
         }
-        if(command=="generate_orders_report")
+        if (command == "generate_orders_report")
         {
             PD->printOrders();
         }
-        if(command=="export_orders_report")
+        if (command == "export_orders_report")
         {
             string path;
             cin >> path;
             PD->exportOrders(path);
         }
         if (command == "get_most_popular_product") { cout << PD->getMostPopularProduct() << endl; }
-        if(command =="exit") exit(0);
-        else {
+        if (command == "exit") exit(0);
+        else
+        {
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }
     }

@@ -5,6 +5,7 @@
 #include <vector>
 #include <iomanip>
 #include <cassert>
+
 #ifndef NDEBUG
 #define DBGPRINT cout << ProductDatabase::mapToString() << endl;
 #else
@@ -41,7 +42,7 @@ void ProductDatabase::saveProduct(const string &productID, string productName, i
 void ProductDatabase::purchaseProduct(string productID, int quantity, double price)
 {
     if (products.find(productID) == products.end()) {}
-        product a = products[productID];
+    product a = products[productID];
     a.balance += quantity;
     if (a.purchasedPrices.count(price) == 0)
     {
@@ -82,7 +83,7 @@ ProductDatabase::generateOrder(const string &productID, int quantity, const Prod
     b.productID = productID;
     b.productName = a.name;
     b.sellingPrice = a.price;
-    b.COGS = price*quantity;
+    b.COGS = price * quantity;
     orders.push_back(b);
 }
 
@@ -148,7 +149,6 @@ string ProductDatabase::getMostPopularProduct()
 }
 
 
-
 double ProductDatabase::calculateAverageSoldPrice(const string &product_id)
 {
     map<double, int>::iterator iter = products[product_id].soldPrices.begin();
@@ -197,13 +197,14 @@ void ProductDatabase::exportOrders(string filePath)
 {
     ofstream file(filePath);
     file << "Quantity,ProductID,ProductName,SellingPrice,COGS\n";
-    for (order order : orders) {
-        file << order.quantity << "," << order.productID << ","
-             << order.productName << "," << order.sellingPrice << ","
+    for (order order: orders)
+    {
+        file << order.quantity << "," << order.productID << "," << order.productName << "," << order.sellingPrice << ","
              << order.COGS << "\n";
     }
     file.close();
 }
+
 void ProductDatabase::printOrders()
 {
     // Print header

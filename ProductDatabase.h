@@ -9,10 +9,10 @@
 #include <map>
 
 #include <vector>
+
 using namespace std;
 
-/* A class representing a priority queue backed by an unsorted,
- * doubly-linked list.
+/* A class representing a ecommerce app logic.
  */
 class ProductDatabase {
 public:
@@ -88,12 +88,14 @@ private:
     };
     map<string, product> products;
     vector<order> orders;
+
     double calculateAverageSoldPrice(const string &product_id);
 
     string mapToString();
-    string mapToString(const map<double, int> &m);
-    void generateOrder(const string &productID, int quantity, const product &a, double price);
 
+    string mapToString(const map<double, int> &m);
+
+    void generateOrder(const string &productID, int quantity, const product &a, double price);
 
 
 };
