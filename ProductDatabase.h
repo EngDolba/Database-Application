@@ -68,6 +68,7 @@ public:
     */
     string getMostPopularProduct();
 
+
 private:
     struct product {
         string id;
@@ -92,7 +93,6 @@ private:
     string mapToString();
     string mapToString(const map<double, int> &m);
     void generateOrder(const string &productID, int quantity, const product &a, double price);
-
 
 
 

@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <iomanip>
+#include <cassert>
 #ifndef NDEBUG
 #define DBGPRINT cout << ProductDatabase::mapToString() << endl;
 #else
@@ -39,7 +40,8 @@ void ProductDatabase::saveProduct(const string &productID, string productName, i
 
 void ProductDatabase::purchaseProduct(string productID, int quantity, double price)
 {
-    product a = products[productID];
+    if (products.find(productID) == products.end()) {}
+        product a = products[productID];
     a.balance += quantity;
     if (a.purchasedPrices.count(price) == 0)
     {
@@ -202,23 +204,20 @@ void ProductDatabase::exportOrders(string filePath)
     }
     file.close();
 }
-void ProductDatabase::printOrders() {
+void ProductDatabase::printOrders()
+{
     // Print header
-    cout << left << setw(15) << "Product ID"
-              << left << setw(25) << "Product Name"
-              << left << setw(10) << "Quantity"
-              << left << setw(10) << "COGS"
-              << left << setw(15) << "Selling Price" << endl;
+    cout << left << setw(15) << "Product ID" << left << setw(25) << "Product Name" << left << setw(10) << "Quantity"
+         << left << setw(10) << "COGS" << left << setw(15) << "Selling Price" << endl;
     cout << setfill('-') << setw(75) << "" << endl;
     cout << setfill(' ');
 
     // Print orders
-    for (auto o : orders) {
-        cout << left << setw(15) << o.productID
-                  << left << setw(25) << o.productName
-                  << left << setw(10) << o.quantity
-                  << left << setw(10) << fixed << setprecision(2) << o.COGS
-                  << left << setw(15) << fixed << setprecision(2) << o.sellingPrice << endl;
+    for (auto o: orders)
+    {
+        cout << left << setw(15) << o.productID << left << setw(25) << o.productName << left << setw(10) << o.quantity
+             << left << setw(10) << fixed << setprecision(2) << o.COGS << left << setw(15) << fixed << setprecision(2)
+             << o.sellingPrice << endl;
     }
 }
 

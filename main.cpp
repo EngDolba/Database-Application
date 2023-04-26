@@ -6,7 +6,6 @@ using namespace std;
 int main()
 {
     ProductDatabase *PD = new ProductDatabase();
-
     while (true)
     {
         cout << "Enter A Command: " << endl;
