@@ -56,6 +56,9 @@ public:
     */
     string getFewestProduct();
 
+    /* */
+    void printOrders();
+
     /* exports CSV-type orders to specified filepath */
     void exportOrders(string filepath);
 
@@ -64,7 +67,6 @@ public:
      orders.
     */
     string getMostPopularProduct();
-
 
 private:
     struct product {
@@ -90,4 +92,8 @@ private:
     string mapToString();
     string mapToString(const map<double, int> &m);
     void generateOrder(const string &productID, int quantity, const product &a, double price);
+
+
+
+
 };

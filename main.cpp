@@ -2,6 +2,7 @@
 using namespace std;
 
 #include "ProductDatabase.h"
+#include <limits>
 int main()
 {
     ProductDatabase *PD = new ProductDatabase();
@@ -63,7 +64,11 @@ int main()
             cout << PD->getFewestProduct() << endl;
 
         }
-        if(command=="export")
+        if(command=="generate_orders_report")
+        {
+            PD->printOrders();
+        }
+        if(command=="export_orders_report")
         {
             string path;
             cin >> path;
@@ -71,5 +76,8 @@ int main()
         }
         if (command == "get_most_popular_product") { cout << PD->getMostPopularProduct() << endl; }
         if(command =="exit") exit(0);
+        else {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
     }
 }

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <iomanip>
 #ifndef NDEBUG
 #define DBGPRINT cout << ProductDatabase::mapToString() << endl;
 #else
@@ -192,7 +193,7 @@ string ProductDatabase::mapToString(const map<double, int> &m)
 
 void ProductDatabase::exportOrders(string filePath)
 {
-    std::ofstream file(filePath);
+    ofstream file(filePath);
     file << "Quantity,ProductID,ProductName,SellingPrice,COGS\n";
     for (order order : orders) {
         file << order.quantity << "," << order.productID << ","
@@ -200,6 +201,26 @@ void ProductDatabase::exportOrders(string filePath)
              << order.COGS << "\n";
     }
     file.close();
-    orders.clear();
 }
+void ProductDatabase::printOrders() {
+    // Print header
+    cout << left << setw(15) << "Product ID"
+              << left << setw(25) << "Product Name"
+              << left << setw(10) << "Quantity"
+              << left << setw(10) << "COGS"
+              << left << setw(15) << "Selling Price" << endl;
+    cout << setfill('-') << setw(75) << "" << endl;
+    cout << setfill(' ');
+
+    // Print orders
+    for (auto o : orders) {
+        cout << left << setw(15) << o.productID
+                  << left << setw(25) << o.productName
+                  << left << setw(10) << o.quantity
+                  << left << setw(10) << fixed << setprecision(2) << o.COGS
+                  << left << setw(15) << fixed << setprecision(2) << o.sellingPrice << endl;
+    }
+}
+
+
 
