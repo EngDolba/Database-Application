@@ -23,7 +23,7 @@ public:
     ~ProductDatabase();
 
     /* Add a new product to the catalog or modify an existing one. */
-    void saveProduct(const string &productID, string productName, int productPrice);
+    void saveProduct(const string &productID, string productName, double productPrice);
 
     /*Purchase a product, increasing its balance based on the specified quantity.*/
     void purchaseProduct(string productID, int quantity, double price);
@@ -88,13 +88,9 @@ private:
     };
     map<string, product> products;
     vector<order> orders;
-
     double calculateAverageSoldPrice(const string &product_id);
-
     string mapToString();
-
     string mapToString(const map<double, int> &m);
-
     void generateOrder(const string &productID, int quantity, const product &a, double price);
 
 

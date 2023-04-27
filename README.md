@@ -2,8 +2,8 @@
 
 Project created as a part of acceptance exam of europebet
 
-
 ## Program information
+
 console-based ecommerce application that includes the following commands:
 
 - save_product
@@ -15,9 +15,11 @@ console-based ecommerce application that includes the following commands:
 - get_fewest_product
 - get_most_popular_product
 - exit
+
 ## constraints
+
 - does not store data persistently, though optionally writes some data to file
-- does not check for invalid inputs and expects that it will be given correct inputs
+- expects that parameters given to it will be of valid types and valid quantity
 
 ## Commands:
 
@@ -58,6 +60,14 @@ console-based ecommerce application that includes the following commands:
 - `get_most_popular_product`:
     - Return the name of the product with the highest number of orders.
     - Example: `get_most_popular_product` (Returns `iphone`)
+
+  `generate_orders_report`:
+    - Generate a report of all orders, including the product ID, product name, quantity,
+      price, cost of goods sold (COGS), and selling price.
+
+  `export_orders_report`:
+    - Export the report of all orders to a CSV
+      file at the specified file path.
 
 - `exit`:
     - Close the console application.

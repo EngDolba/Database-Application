@@ -4,7 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <iomanip>
-#include <cassert>
+
 
 #ifndef NDEBUG
 #define DBGPRINT cout << ProductDatabase::mapToString() << endl;
@@ -16,8 +16,13 @@ ProductDatabase::ProductDatabase() = default;
 
 ProductDatabase::~ProductDatabase() = default;
 
-void ProductDatabase::saveProduct(const string &productID, string productName, int productPrice)
+void ProductDatabase::saveProduct(const string &productID, string productName, double productPrice)
 {
+    if (productPrice <= 0)
+    {
+        cout << "COMMAND TERMINATED: INVALID PRICE" << endl;
+        return;
+    }
     if (products.count(productID) == 0)
     {
 
@@ -41,7 +46,21 @@ void ProductDatabase::saveProduct(const string &productID, string productName, i
 
 void ProductDatabase::purchaseProduct(string productID, int quantity, double price)
 {
-    if (products.find(productID) == products.end()) {}
+    if (products.count(productID) == 0)
+    {
+        cout << "COMMAND TERMINATED: INVALID ID" << endl;
+        return;
+    }
+    if (quantity <= 0)
+    {
+        cout << "COMMAND TERMINATED: INVALID QUANTITY" << endl;
+        return;
+    }
+    if (price <= 0)
+    {
+        cout << "COMMAND TERMINATED: INVALID PRICE" << endl;
+        return;
+    }
     product a = products[productID];
     a.balance += quantity;
     if (a.purchasedPrices.count(price) == 0)
@@ -58,7 +77,22 @@ void ProductDatabase::purchaseProduct(string productID, int quantity, double pri
 
 void ProductDatabase::orderProduct(string productID, int quantity)
 {
+    if (products.count(productID) == 0)
+    {
+        cout << "COMMAND TERMINATED: INVALID ID" << endl;
+        return;
+    }
+    if (quantity <= 0)
+    {
+        cout << "COMMAND TERMINATED: INVALID QUANTITY" << endl;
+        return;
+    }
     product a = products[productID];
+    if (quantity > a.balance)
+    {
+        cout << "COMMAND TERMINATED: NOT ENOUGH BALANCE" << endl;
+        return;
+    }
     double price = products[productID].price;
     if (a.soldPrices.count(price) == 0)
     {
@@ -89,11 +123,21 @@ ProductDatabase::generateOrder(const string &productID, int quantity, const Prod
 
 int ProductDatabase::getQuantityOfProduct(string productID)
 {
+    if (products.count(productID) == 0)
+    {
+        cout << "COMMAND TERMINATED: INVALID ID" << endl;
+        return -1;
+    }
     return products[productID].balance;
 }
 
 double ProductDatabase::getAveragePrice(string productId)
 {
+    if (products.count(productId) == 0)
+    {
+        cout << "COMMAND TERMINATED: INVALID ID" << endl;
+        return -1;
+    }
     map<double, int>::iterator iter = products[productId].purchasedPrices.begin();
     double sum = 0;
     int count = 0;
@@ -108,6 +152,11 @@ double ProductDatabase::getAveragePrice(string productId)
 
 double ProductDatabase::getProductProfit(string productId)
 {
+    if (products.count(productId) == 0)
+    {
+        cout << "COMMAND TERMINATED: INVALID ID" << endl;
+        return -1;
+    }
     double a = ProductDatabase::getAveragePrice(productId);
     double b = ProductDatabase::calculateAverageSoldPrice(productId);
     return products[productId].soldNumber * (b - a);
@@ -118,7 +167,8 @@ string ProductDatabase::getFewestProduct()
     map<string, product>::iterator iter = products.begin();
     int min = INT16_MAX;
     string maxId;
-    for (iter; iter != products.end(); iter++)
+    if(products.empty()) return "we don't have any kind of product";
+    for(iter; iter != products.end(); iter++)
     {
         product a = iter->second;
         if (a.balance < min)
@@ -127,14 +177,26 @@ string ProductDatabase::getFewestProduct()
             maxId = a.id;
         }
     }
-    return products[maxId].name;
+    iter = products.begin();
+    string result = "";
+    for(iter; iter != products.end(); iter++)
+    {
+        product a = iter->second;
+       if(a.balance==products[maxId].balance)
+       {
+           result+=" "+a.name;
+       }
+    }
+
+    return result.substr(1,result.length()-1);
 }
 
 string ProductDatabase::getMostPopularProduct()
 {
     map<string, product>::iterator iter = products.begin();
-    int max = 0;
-    string maxId = "";
+    int max = -1;
+    if(products.empty()) return "we don't have any kind of product";
+    string maxId;
     for (iter; iter != products.end(); iter++)
     {
         product a = iter->second;
@@ -144,17 +206,32 @@ string ProductDatabase::getMostPopularProduct()
             maxId = a.id;
         }
     }
+    iter = products.begin();
+    string result = "";
+    for(iter; iter != products.end(); iter++)
+    {
+        product a = iter->second;
+        if(a.soldNumber==products[maxId].soldNumber)
+        {
+            result+=" "+a.name;
+        }
+    }
     DBGPRINT;
-    return products[maxId].name;
+    return result.substr(1,result.length()-1);
 }
 
 
-double ProductDatabase::calculateAverageSoldPrice(const string &product_id)
+double ProductDatabase::calculateAverageSoldPrice(const string &productId)
 {
-    map<double, int>::iterator iter = products[product_id].soldPrices.begin();
+    if (products.count(productId) == 0)
+    {
+        cout << "COMMAND TERMINATED: INVALID ID" << endl;
+        return -1;
+    }
+    map<double, int>::iterator iter = products[productId].soldPrices.begin();
     double sum = 0;
     int count = 0;
-    for (iter; iter != products[product_id].soldPrices.end(); iter++)
+    for (iter; iter != products[productId].soldPrices.end(); iter++)
     {
         sum += iter->second * iter->first;
         count += iter->second;
@@ -196,6 +273,12 @@ string ProductDatabase::mapToString(const map<double, int> &m)
 void ProductDatabase::exportOrders(string filePath)
 {
     ofstream file(filePath);
+    if (!file.is_open())
+    {
+        cout << "COMMAND TERMINATED: INVALID PATH" << endl;
+        return;
+    }
+
     file << "Quantity,ProductID,ProductName,SellingPrice,COGS\n";
     for (order order: orders)
     {

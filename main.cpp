@@ -19,11 +19,11 @@ int main()
             cin >> productId;
             string productName;
             cin >> productName;
-            int productPrice;
+            double productPrice;
             cin >> productPrice;
             PD->saveProduct(productId, productName, productPrice);
         }
-        if (command == "purchase_product")
+        else if (command == "purchase_product")
         {
             string productId;
             cin >> productId;
@@ -33,7 +33,7 @@ int main()
             cin >> productPrice;
             PD->purchaseProduct(productId, priceQuantity, productPrice);
         }
-        if (command == "order_product")
+        else if (command == "order_product")
         {
             string productId;
             cin >> productId;
@@ -42,43 +42,44 @@ int main()
 
             PD->orderProduct(productId, quantity);
         }
-        if (command == "get_quantity_of_product")
+        else if (command == "get_quantity_of_product")
         {
             string productId;
             cin >> productId;
             cout << PD->getQuantityOfProduct(productId) << endl;
         }
-        if (command == "get_average_price")
+        else if (command == "get_average_price")
         {
             string productId;
             cin >> productId;
             cout << PD->getAveragePrice(productId) << endl;
         }
-        if (command == "get_product_profit")
+        else if (command == "get_product_profit")
         {
             string productId;
             cin >> productId;
             cout << PD->getProductProfit(productId) << endl;
         }
-        if (command == "get_fewest_product")
+        else if (command == "get_fewest_product")
         {
             cout << PD->getFewestProduct() << endl;
 
         }
-        if (command == "generate_orders_report")
+        else if (command == "generate_orders_report")
         {
             PD->printOrders();
         }
-        if (command == "export_orders_report")
+        else if (command == "export_orders_report")
         {
             string path;
             cin >> path;
             PD->exportOrders(path);
         }
-        if (command == "get_most_popular_product") { cout << PD->getMostPopularProduct() << endl; }
-        if (command == "exit") exit(0);
+        else if (command == "get_most_popular_product") { cout << PD->getMostPopularProduct() << endl; }
+        else if (command == "exit") exit(0);
         else
         {
+            cout << "COMMAND TERMINATED: COMMAND NON-EXISTENT" << endl;
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }
     }
