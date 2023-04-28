@@ -177,18 +177,7 @@ string ProductDatabase::getFewestProduct()
             maxId = a.id;
         }
     }
-    iter = products.begin();
-    string result = "";
-    for(iter; iter != products.end(); iter++)
-    {
-        product a = iter->second;
-       if(a.balance==products[maxId].balance)
-       {
-           result+=" "+a.name;
-       }
-    }
-
-    return result.substr(1,result.length()-1);
+   return products[maxId].name;
 }
 
 string ProductDatabase::getMostPopularProduct()
@@ -206,18 +195,7 @@ string ProductDatabase::getMostPopularProduct()
             maxId = a.id;
         }
     }
-    iter = products.begin();
-    string result = "";
-    for(iter; iter != products.end(); iter++)
-    {
-        product a = iter->second;
-        if(a.soldNumber==products[maxId].soldNumber)
-        {
-            result+=" "+a.name;
-        }
-    }
-    DBGPRINT;
-    return result.substr(1,result.length()-1);
+  return products[maxId].name;
 }
 
 
